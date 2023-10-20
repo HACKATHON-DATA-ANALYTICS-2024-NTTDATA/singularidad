@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: acrsingularidad-localdocker-deployment
+  labels:
+    app: acrsingularidad-localdocker
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: acrsingularidad-localdocker
+  template:
+    metadata:
+      labels:
+        app: acrsingularidad-localdocker
+    spec:
+      containers:
+        - name: acrsingularidad-localdocker
+         # image: __DOCKER_REPOSITORY__/__IMAGE_NAME__:__IMAGE_TAG__
+          image: aksforacrcoderpath.azurecr.io/coderpath/aks-ms-singularidad:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 7000
+          resources:
+          limits:
+            cpu: 300m
+            memory: "100Mi"
+          requests:
+            cpu: 100m
+            memory: "50Mi"
